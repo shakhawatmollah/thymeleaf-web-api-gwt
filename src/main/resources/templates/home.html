@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Security Demo</a>
+        <div class="navbar-nav">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-link nav-link">Logout</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!--<div sec:authorize="isAuthenticated()">-->
+<!--    Logged in as: <span sec:authentication="name"></span>-->
+<!--    Roles: <span sec:authentication="principal.authorities"></span>-->
+<!--</div>-->
+
+<div class="container mt-5">
+    <div class="alert alert-success" th:text="${message}">Welcome message</div>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            API Endpoints
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Test API Endpoints</h5>
+            <p class="card-text">Use these endpoints to test your authentication:</p>
+            <ul>
+                <li><strong>Public:</strong> /api/public</li>
+                <li><strong>User:</strong> /api/user</li>
+                <li><strong>Admin:</strong> /api/admin</li>
+            </ul>
+            <p>For mobile apps, use the JWT token obtained from /api/auth/login</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
