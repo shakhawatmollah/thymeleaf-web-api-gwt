@@ -8,10 +8,7 @@ import com.shakhawat.authapp.dto.TokenRefreshRequest;
 import com.shakhawat.authapp.entity.RefreshToken;
 import com.shakhawat.authapp.entity.User;
 import com.shakhawat.authapp.exception.TokenRefreshException;
-import com.shakhawat.authapp.service.AuthService;
-import com.shakhawat.authapp.service.RefreshTokenService;
-import com.shakhawat.authapp.service.TokenBlacklistService;
-import com.shakhawat.authapp.service.UserService;
+import com.shakhawat.authapp.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -87,10 +84,15 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse> logoutUser(HttpServletRequest httpServletRequest, @RequestBody TokenRefreshRequest tokenRefreshRequest) {
-        refreshTokenService.findByToken(tokenRefreshRequest.getRefreshToken())
-                .ifPresent(refreshToken -> {
-                    refreshTokenService.deleteByUserId(refreshToken.getUser().getId());
-                });
+
+        if(tokenRefreshRequest.getRefreshToken() == null && SecurityUtils.getCurrentUserId() != null) {
+            refreshTokenService.deleteByUserId(SecurityUtils.getCurrentUserId());
+        } else {
+            refreshTokenService.findByToken(tokenRefreshRequest.getRefreshToken())
+                    .ifPresent(refreshToken -> {
+                        refreshTokenService.deleteByUserId(refreshToken.getUser().getId());
+                    });
+        }
 
         String token = jwtService.resolveToken(httpServletRequest);
 

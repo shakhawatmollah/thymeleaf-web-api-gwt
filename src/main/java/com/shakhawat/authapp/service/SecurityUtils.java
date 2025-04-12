@@ -20,7 +20,7 @@ public class SecurityUtils {
         if (isAuthenticated()) {
             return authentication.getName();
         }
-        return "";
+        return null;
     }
 
     public static String getCurrentUserFullName() {
@@ -29,7 +29,7 @@ public class SecurityUtils {
         if (isAuthenticated()) {
             return user.getFirstname() + " " + user.getLastname();
         }
-        return "";
+        return null;
     }
 
     public static String getCurrentUserRole() {
@@ -38,7 +38,16 @@ public class SecurityUtils {
         if (isAuthenticated()) {
             return user.getRole().name();
         }
-        return "";
+        return null;
+    }
+
+    public static Integer getCurrentUserId() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        if (isAuthenticated()) {
+            return user.getId();
+        }
+        return null;
     }
 
 }
