@@ -136,13 +136,36 @@ spring.datasource.password=yourpassword
 spring.jpa.hibernate.ddl-auto=update
 ```
 
-## Running Tests
+## Testing the Application
 
-To run the test suite:
+### Web Interface
+1. Access `http://localhost:8888/login` to see the custom login form
+2. Try logging in with:
+   - User: user@example.com / password
+   - Admin: admin@example.com / admin
 
-```bash
-mvn test
-```
+### API Endpoints
+1. **Login API** (for mobile apps):
+   ```
+   POST /api/auth/login
+   Body: {"email": "user@example.com", "password": "password"}
+   ```
+
+2. **Public API** (no auth required):
+   ```
+   GET /api/public
+   ```
+
+3. **User API** (requires USER role):
+   ```
+   GET /api/user
+   Header: Authorization: Bearer <JWT_TOKEN>
+   ```
+
+4. **Admin API** (requires ADMIN role):
+   ```
+   GET /api/admin
+   Header: Authorization: Bearer <JWT_TOKEN>
 
 ## Deployment
 
