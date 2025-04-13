@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title th:text="Dashboard"></title>
+</head>
+<body>
+<section th:fragment="content">
+    <div class="container mt-5">
+        <div class="alert alert-success" th:text="${welcome_message}">Welcome message</div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                API Endpoints
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Test API Endpoints</h5>
+                <p class="card-text">Use these endpoints to test your authentication:</p>
+                <ul>
+                    <li><strong>Public:</strong> /api/public</li>
+                    <li><strong>User:</strong> /api/user</li>
+                    <li><strong>Admin:</strong> /api/admin</li>
+                </ul>
+                <p>For mobile apps, use the JWT token obtained from /api/auth/login</p>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

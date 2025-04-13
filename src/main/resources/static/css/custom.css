@@ -1,0 +1,26 @@
+/* Custom styles */
+.sidebar {
+    transition: all 0.3s;
+}
+
+.sidebar .nav-link i {
+    margin-right: 8px;
+}
+
+.table-actions {
+    white-space: nowrap;
+    width: 120px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        min-height: auto;
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+}

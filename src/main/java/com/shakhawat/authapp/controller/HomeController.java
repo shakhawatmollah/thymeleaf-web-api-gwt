@@ -16,9 +16,9 @@ public class HomeController {
     @GetMapping("/home")
     public String dashboard(Model model) {
 
-        model.addAttribute("message", "Hi %s! Welcome to the %s Dashboard!".formatted(SecurityUtils.getCurrentUserFullName(), SecurityUtils.getCurrentUserRole()));
+        model.addAttribute("welcome_message", "Hi %s! Welcome to the %s Dashboard!".formatted(SecurityUtils.getCurrentUserFullName(), SecurityUtils.getCurrentUserRole()));
 
-        return "home";
+        return "dashboard";
     }
 
     @GetMapping("/login")
