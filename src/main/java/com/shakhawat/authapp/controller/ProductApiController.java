@@ -3,6 +3,7 @@ package com.shakhawat.authapp.controller;
 import com.shakhawat.authapp.dto.ApiResponse;
 import com.shakhawat.authapp.entity.Product;
 import com.shakhawat.authapp.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -11,15 +12,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/products")
 public class ProductApiController {
 
     private final ProductService productService;
-
-    public ProductApiController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping
     public ResponseEntity<Page<Product>> getAllProducts(Pageable pageable) {
