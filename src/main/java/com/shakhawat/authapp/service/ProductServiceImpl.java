@@ -1,5 +1,6 @@
 package com.shakhawat.authapp.service;
 
+import com.shakhawat.authapp.dto.ProductDto;
 import com.shakhawat.authapp.entity.Product;
 import com.shakhawat.authapp.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,13 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public Product saveProduct(Product product) {
+    public Product saveProduct(ProductDto productDto) {
+
+        Product product = new Product();
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setPrice(productDto.getPrice());
+
         return productRepository.save(product);
     }
 

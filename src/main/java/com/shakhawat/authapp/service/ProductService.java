@@ -1,11 +1,12 @@
 package com.shakhawat.authapp.service;
 
+import com.shakhawat.authapp.dto.ProductDto;
 import com.shakhawat.authapp.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
-    Product saveProduct(Product product);
+    Product saveProduct(ProductDto product);
 
     Product getProductById(Long id);
 

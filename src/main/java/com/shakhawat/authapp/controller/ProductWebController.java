@@ -1,5 +1,6 @@
 package com.shakhawat.authapp.controller;
 
+import com.shakhawat.authapp.dto.ProductDto;
 import com.shakhawat.authapp.entity.Product;
 import com.shakhawat.authapp.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -63,10 +64,10 @@ public class ProductWebController {
     }
 
     @PostMapping("/save")
-    public String saveProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
+    public String saveProduct(@ModelAttribute ProductDto product, RedirectAttributes redirectAttributes) {
         try {
-            redirectAttributes.addFlashAttribute("message", product.getId() == null ? "Product created successfully!" : "Product updated successfully!");
-            productService.saveProduct(product);
+            Product prod = productService.saveProduct(product);
+            redirectAttributes.addFlashAttribute("message", prod.getId() == null ? "Product created successfully!" : "Product updated successfully!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error saving product: " + e.getMessage());
         }

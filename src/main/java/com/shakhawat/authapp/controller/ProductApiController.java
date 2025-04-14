@@ -1,6 +1,7 @@
 package com.shakhawat.authapp.controller;
 
 import com.shakhawat.authapp.dto.ApiResponse;
+import com.shakhawat.authapp.dto.ProductDto;
 import com.shakhawat.authapp.entity.Product;
 import com.shakhawat.authapp.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +51,7 @@ public class ProductApiController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> createProduct(@RequestBody ProductDto product) {
         Product savedProduct = productService.saveProduct(product);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
