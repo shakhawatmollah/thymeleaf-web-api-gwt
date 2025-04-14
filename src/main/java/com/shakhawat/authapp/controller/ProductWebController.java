@@ -21,7 +21,7 @@ public class ProductWebController {
 
     private final ProductService productService;
 
-    private static final int DEFAULT_PAGE_SIZE = 5;
+    private static final int DEFAULT_PAGE_SIZE = 10;
 
     @GetMapping
     public String listProducts(
@@ -36,12 +36,10 @@ public class ProductWebController {
         Page<Product> productPage;
 
         if (query.isPresent() && !query.get().isEmpty()) {
-            productPage = productService.searchProducts(query.get(),
-                    PageRequest.of(currentPage - 1, pageSize));
+            productPage = productService.searchProducts(query.get(), PageRequest.of(currentPage - 1, pageSize));
             model.addAttribute("query", query.get());
         } else {
-            productPage = (Page<Product>) productService.getAllProducts(
-                    PageRequest.of(currentPage - 1, pageSize));
+            productPage = (Page<Product>) productService.getAllProducts(PageRequest.of(currentPage - 1, pageSize));
         }
 
         model.addAttribute("products", productPage);
@@ -49,8 +47,7 @@ public class ProductWebController {
 
         int totalPages = productPage.getTotalPages();
         if (totalPages > 0) {
-            model.addAttribute("pageNumbers",
-                    IntStream.rangeClosed(1, totalPages).boxed().toList());
+            model.addAttribute("pageNumbers", IntStream.rangeClosed(1, totalPages).boxed().toList());
         }
 
         return "products/list";
@@ -64,10 +61,14 @@ public class ProductWebController {
     }
 
     @PostMapping("/save")
-    public String saveProduct(@ModelAttribute ProductDto product, RedirectAttributes redirectAttributes) {
+    public String saveProduct(@ModelAttribute ProductDto product, @RequestParam("id") Long id, RedirectAttributes redirectAttributes) {
         try {
-            Product prod = productService.saveProduct(product);
-            redirectAttributes.addFlashAttribute("message", prod.getId() == null ? "Product created successfully!" : "Product updated successfully!");
+            if(id == null){
+                productService.saveProduct(product);
+            } else {
+                productService.updateProduct(id, product);
+            }
+            redirectAttributes.addFlashAttribute("message", id == null ? "Product created successfully!" : "Product updated successfully!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error saving product: " + e.getMessage());
         }

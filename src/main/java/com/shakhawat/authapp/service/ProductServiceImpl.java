@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Long id, Product product) {
+    public Product updateProduct(Long id, ProductDto product) {
         Product existingProduct = getProductById(id);
         existingProduct.setName(product.getName());
         existingProduct.setDescription(product.getDescription());

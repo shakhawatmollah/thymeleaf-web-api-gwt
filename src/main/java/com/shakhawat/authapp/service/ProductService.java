@@ -14,7 +14,7 @@ public interface ProductService {
 
     Page<Product> searchProducts(String query, Pageable pageable);
 
-    Product updateProduct(Long id, Product product);
+    Product updateProduct(Long id, ProductDto product);
 
     void deleteProduct(Long id);
 }
