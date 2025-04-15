@@ -32,6 +32,30 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
+
+                <div class="row">
+                    <!-- Result count -->
+                    <span class="col-sm-8">
+                        Showing <span th:text="${currentCount} + ' of ' + ${totalItems}"></span> records
+                        (Page <span th:text="${currentPage} + ' of ' + ${totalPages}"></span>)
+                    </span>
+
+                    <!-- Page size selector -->
+                    <div class="col-auto col-sm-4 mb-2">
+                        <div class="input-group">
+                            <span class="input-group-text">Items per page:</span>
+                            <select class="form-select" onchange="location = this.value;">
+                                <th:block th:each="size : ${ {5, 10, 20, 50} }">
+                                    <option th:value="@{/products(page=1, size=${size})}"
+                                            th:text="${size}"
+                                            th:selected="${size} == ${pageSize}">
+                                    </option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <table class="table table-striped table-hover">
                     <thead class="table-light">
                     <tr>

@@ -45,6 +45,12 @@ public class ProductWebController {
         model.addAttribute("products", productPage);
         model.addAttribute("pageTitle", "Product Management");
 
+        model.addAttribute("currentPage", page.orElse(currentPage));
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        model.addAttribute("totalItems", productPage.getTotalElements());
+        model.addAttribute("pageSize", size.orElse(pageSize));
+        model.addAttribute("currentCount", productPage.get().count());
+
         int totalPages = productPage.getTotalPages();
         if (totalPages > 0) {
             model.addAttribute("pageNumbers", IntStream.rangeClosed(1, totalPages).boxed().toList());
